@@ -53,6 +53,30 @@ app/admin/                     # Admin routing structure
   - Cancel and Save buttons
   - Form validation and routing back to courses list
 
+### ✅ Admin Instructors Management
+- **Location**: `app/admin/instructors/page.tsx`
+- **URL**: `http://localhost:3001/admin/instructors`
+- **Features**:
+  - Acme University sidebar layout with navigation
+  - Instructors table with Instructor, Courses, Contact, Actions columns
+  - Search functionality across all instructor data
+  - Assign Instructor button
+  - View Details action for each instructor (routes to profile)
+  - Sample instructor data matching the design
+
+### ✅ Instructor Profile Page
+- **Location**: `app/admin/instructors/[id]/page.tsx`
+- **URL**: `http://localhost:3001/admin/instructors/1` (dynamic routing)
+- **Features**:
+  - EduPortal header with navigation
+  - Instructor profile card with avatar, name, title, join date
+  - Edit Profile button
+  - Tabbed interface: Courses, Student Feedback, Grading History
+  - Assigned Courses table with Course Name, Code, Semester, Students Enrolled
+  - Sample course data for each instructor
+  - Automatic routing from instructor list "View Details"
+  - 404 handling for invalid instructor IDs
+
 ### ✅ Admin Header Component
 - **Location**: `features/admin/components/layout/AdminHeader.tsx`
 - **Features**:
@@ -63,11 +87,23 @@ app/admin/                     # Admin routing structure
   - Two-way routing between pages
   - Hover effects and active states
 
+### ✅ Admin Sidebar Component
+- **Location**: `features/admin/components/layout/AdminSidebar.tsx`
+- **Features**:
+  - Acme University branding
+  - Sidebar navigation (Dashboard, Courses, Instructors, Students, Settings)
+  - Active navigation state highlighting
+  - Icon-based navigation menu
+  - Alternative layout option for admin pages
+
 ### ✅ Reusable UI Components
 - **StatsCard**: Display statistics with title and value
 - **ActivityItem**: Display activity items with icons and timestamps
 - **CoursesTable**: Display courses in a table format with actions
+- **InstructorsTable**: Display instructors with search and actions (auto-routing)
+- **InstructorProfileTabs**: Tabbed interface for instructor profile data
 - **FormField**: Reusable form field component (text, textarea, select)
+- **AdminLayoutWithSidebar**: Layout wrapper with sidebar navigation
 
 ## Design Features Implemented
 
@@ -123,12 +159,55 @@ app/admin/                     # Admin routing structure
 - ✅ Routing: Cancel/Save returns to courses list
 - ✅ Clean form layout with proper spacing
 
+### Instructors Page:
+- ✅ "Acme University" sidebar with Admin label
+- ✅ Sidebar navigation with icons (Dashboard, Courses, Instructors, Students, Settings)
+- ✅ "Instructors" page title with "Assign Instructor" button
+- ✅ Search bar with magnifying glass icon
+- ✅ Instructors table with proper columns:
+  - Instructor, Courses, Contact, Actions
+- ✅ Sample instructor data:
+  - Dr. Eleanor Vance (Calculus I, Linear Algebra) - eleanor.vance@email.com
+  - Prof. Samuel Harper (Introduction to Programming, Data Structures) - samuel.harper@email.com
+  - Dr. Olivia Bennett (Organic Chemistry, Biochemistry) - olivia.bennett@email.com
+  - Prof. Ethan Carter (World History, European History) - ethan.carter@email.com
+  - Dr. Sophia Hayes (Creative Writing, American Literature) - sophia.hayes@email.com
+- ✅ View Details action for each instructor
+- ✅ Search functionality across names, courses, and emails
+- ✅ Clean table design with hover effects
+- ✅ Sidebar layout with gray background
+
+### Instructor Profile Page:
+- ✅ "EduPortal" header with navigation (Dashboard, Courses, Instructors, Students, Reports)
+- ✅ "Instructor Profile" page title with subtitle
+- ✅ Instructor profile card with:
+  - Circular avatar with initials (orange gradient background)
+  - Dr. Robert Anderson name and title
+  - "Professor of Computer Science" title
+  - "Joined August 2021" date
+  - "Edit Profile" button (gray)
+- ✅ Tabbed interface with active state:
+  - Courses (active), Student Feedback, Grading History
+- ✅ "Assigned Courses" table with proper columns:
+  - Course Name, Course Code, Semester, Students Enrolled
+- ✅ Sample course data:
+  - Introduction to Programming (CS101) - Fall 2023 - 50 students
+  - Data Structures and Algorithms (CS201) - Spring 2024 - 45 students
+  - Software Engineering (CS301) - Fall 2024 - 40 students
+- ✅ Clean white background with proper spacing
+- ✅ Footer: "©2024 EduPortal. All rights reserved."
+- ✅ Dynamic routing from instructor list
+- ✅ Different instructor data for each ID (1-5)
+
 ## Access URLs
 
 - **Admin Root**: `http://localhost:3001/admin` (redirects to dashboard)
 - **Admin Dashboard**: `http://localhost:3001/admin/dashboard`
 - **Admin Courses**: `http://localhost:3001/admin/courses`
 - **Add Course**: `http://localhost:3001/admin/courses/add`
+- **Admin Instructors**: `http://localhost:3001/admin/instructors`
+- **Instructors (Header Layout)**: `http://localhost:3001/admin/instructors-header`
+- **Instructor Profile**: `http://localhost:3001/admin/instructors/[id]` (e.g., `/1`, `/2`, `/3`, `/4`, `/5`)
 
 ## Future Admin Features
 
