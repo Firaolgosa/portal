@@ -1,16 +1,42 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('oriD');
-  const [password, setPassword] = useState('');
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    userType: 'student'
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle login logic here
-    console.log('Login attempt:', { username, password });
+    setIsLoading(true);
+
+    // Simulate login process
+    setTimeout(() => {
+      setIsLoading(false);
+
+      // Route based on user type
+      if (formData.userType === 'admin') {
+        router.push('/admin/dashboard');
+      } else if (formData.userType === 'instructor') {
+        router.push('/instructor/dashboard');
+      } else {
+        router.push('/student/dashboard');
+      }
+    }, 1500);
   };
 
   return (
@@ -38,24 +64,72 @@ export default function LoginPage() {
           {/* Welcome Message */}
           <div className="text-center mb-10">
             <h2 className="text-3xl font-normal text-gray-900">Welcome back</h2>
+            <p className="mt-2 text-sm text-gray-600">
+              Or{' '}
+              <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
+                create a new account
+              </Link>
+            </p>
           </div>
 
           {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Username Field */}
+            {/* User Type Selection */}
             <div>
-              <label htmlFor="username" className="sr-only">
-                Username
+              <label className="block text-sm font-medium text-gray-700 mb-3">
+                I am a:
+              </label>
+              <div className="space-y-2">
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="userType"
+                    value="student"
+                    checked={formData.userType === 'student'}
+                    onChange={(e) => handleInputChange('userType', e.target.value)}
+                    className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  />
+                  <span className="ml-3 text-gray-700">Student</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="userType"
+                    value="instructor"
+                    checked={formData.userType === 'instructor'}
+                    onChange={(e) => handleInputChange('userType', e.target.value)}
+                    className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  />
+                  <span className="ml-3 text-gray-700">Instructor</span>
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="radio"
+                    name="userType"
+                    value="admin"
+                    checked={formData.userType === 'admin'}
+                    onChange={(e) => handleInputChange('userType', e.target.value)}
+                    className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                  />
+                  <span className="ml-3 text-gray-700">Administrator</span>
+                </label>
+              </div>
+            </div>
+
+            {/* Email Field */}
+            <div>
+              <label htmlFor="email" className="sr-only">
+                Email
               </label>
               <input
-                id="username"
-                name="username"
-                type="text"
+                id="email"
+                name="email"
+                type="email"
                 required
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={formData.email}
+                onChange={(e) => handleInputChange('email', e.target.value)}
                 className="w-full px-4 py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-gray-900 bg-white"
-                placeholder="Username"
+                placeholder="Email address"
               />
             </div>
 
@@ -69,8 +143,8 @@ export default function LoginPage() {
                 name="password"
                 type="password"
                 required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={(e) => handleInputChange('password', e.target.value)}
                 className="w-full px-4 py-4 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors text-gray-900 bg-white"
                 placeholder="Password"
               />
@@ -90,10 +164,35 @@ export default function LoginPage() {
             <div className="pt-4">
               <button
                 type="submit"
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-4 rounded-md transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 outline-none"
+                disabled={isLoading}
+                className={`w-full font-medium py-4 px-4 rounded-md transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 outline-none ${
+                  isLoading
+                    ? 'bg-gray-400 cursor-not-allowed text-white'
+                    : 'bg-blue-600 hover:bg-blue-700 text-white'
+                }`}
               >
-                Login
+                {isLoading ? (
+                  <div className="flex items-center justify-center">
+                    <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Signing in...
+                  </div>
+                ) : (
+                  'Login'
+                )}
               </button>
+            </div>
+
+            {/* Demo Credentials */}
+            <div className="mt-6 p-4 bg-gray-50 rounded-md">
+              <h4 className="text-sm font-medium text-gray-900 mb-2">Demo Credentials:</h4>
+              <div className="text-xs text-gray-600 space-y-1">
+                <div><strong>Student:</strong> student@demo.com / password</div>
+                <div><strong>Instructor:</strong> instructor@demo.com / password</div>
+                <div><strong>Admin:</strong> admin@demo.com / password</div>
+              </div>
             </div>
           </form>
         </div>
