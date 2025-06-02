@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import StudentHeader from '@/features/student/components/layout/StudentHeader';
 
 interface Course {
@@ -13,6 +14,7 @@ interface Course {
 }
 
 export default function StudentDashboard() {
+  const router = useRouter();
   const [currentGPA, setCurrentGPA] = useState('3.45');
   const [creditsCompleted, setCreditsCompleted] = useState('10');
   const [creditsInProgress, setCreditsInProgress] = useState('14');
@@ -79,6 +81,10 @@ export default function StudentDashboard() {
     alert('GPA calculated successfully!');
   };
 
+  const handleCourseClick = (courseId: string) => {
+    router.push(`/student/courses/${courseId}`);
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <StudentHeader />
@@ -118,7 +124,11 @@ export default function StudentDashboard() {
                 </thead>
                 <tbody className="bg-white">
                   {courses.map((course, index) => (
-                    <tr key={course.id} className={`${index !== courses.length - 1 ? 'border-b border-gray-100' : ''}`}>
+                    <tr
+                      key={course.id}
+                      onClick={() => handleCourseClick(course.id)}
+                      className={`cursor-pointer hover:bg-gray-50 transition-colors ${index !== courses.length - 1 ? 'border-b border-gray-100' : ''}`}
+                    >
                       <td className="px-6 py-4">
                         <div className="text-sm font-medium text-gray-900">
                           {course.name}
