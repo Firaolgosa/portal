@@ -32,7 +32,7 @@ export default function InstructorHeader() {
                   <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
                 </svg>
               </div>
-              <h1 className="text-lg font-semibold text-gray-900">Instructor Portal</h1>
+              <h1 className="text-lg font-semibold text-gray-900">GradeCentral</h1>
             </div>
           </div>
 
@@ -68,7 +68,7 @@ export default function InstructorHeader() {
             >
               Students
             </Link>
-            <Link
+            {/* <Link
               href="/instructor/assignments"
               className={`px-3 py-2 text-sm font-medium border-b-2 ${
                 isActive('/instructor/assignments')
@@ -77,8 +77,8 @@ export default function InstructorHeader() {
               }`}
             >
               Assignments
-            </Link>
-            <Link
+            </Link> */}
+            {/* <Link
               href="/instructor/grades"
               className={`px-3 py-2 text-sm font-medium border-b-2 ${
                 isActive('/instructor/grades')
@@ -87,7 +87,7 @@ export default function InstructorHeader() {
               }`}
             >
               Grades
-            </Link>
+            </Link> */}
             <Link
               href="/instructor/reports"
               className={`px-3 py-2 text-sm font-medium border-b-2 ${
@@ -100,8 +100,31 @@ export default function InstructorHeader() {
             </Link>
           </nav>
 
-          {/* User Profile */}
-          <div className="flex items-center relative group">
+          {/* Search and User Actions */}
+          <div className="flex items-center space-x-4">
+            {/* Search Bar */}
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+              <input
+                type="text"
+                placeholder="Search"
+                className="block w-64 pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm"
+              />
+            </div>
+
+            {/* Notification Icon */}
+            <button className="p-2 text-gray-400 hover:text-gray-500 relative">
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-5 5v-5zM4 19h6v-6H4v6zM16 3h5v5h-5V3zM4 3h6v6H4V3z" />
+              </svg>
+            </button>
+
+            {/* User Profile */}
+            <div className="flex items-center relative group">
             <button className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center hover:bg-gray-400 transition-colors">
               <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
@@ -131,6 +154,7 @@ export default function InstructorHeader() {
                   Sign out
                 </button>
               </div>
+            </div>
             </div>
           </div>
         </div>
