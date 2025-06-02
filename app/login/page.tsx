@@ -28,6 +28,10 @@ export default function LoginPage() {
     setTimeout(() => {
       setIsLoading(false);
 
+      // Set authentication cookies (for demo purposes)
+      document.cookie = `isAuthenticated=true; path=/; max-age=86400`; // 24 hours
+      document.cookie = `userType=${formData.userType}; path=/; max-age=86400`; // 24 hours
+
       // Route based on user type
       if (formData.userType === 'admin') {
         router.push('/admin/dashboard');
