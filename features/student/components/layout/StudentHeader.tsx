@@ -32,7 +32,7 @@ export default function StudentHeader() {
                   <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
                 </svg>
               </div>
-              <h1 className="text-lg font-semibold text-gray-900">Academics Portal</h1>
+              <h1 className="text-lg font-semibold text-gray-900">CampusConnect</h1>
             </div>
           </div>
 
@@ -87,6 +87,16 @@ export default function StudentHeader() {
               }`}
             >
               Calendar
+            </Link>
+            <Link
+              href="/student/messages"
+              className={`px-3 py-2 text-sm font-medium border-b-2 ${
+                isActive('/student/messages')
+                  ? 'text-gray-900 border-gray-900'
+                  : 'text-gray-700 hover:text-gray-900 border-transparent hover:border-gray-300'
+              }`}
+            >
+              Messages
             </Link>
           </nav>
 
